@@ -1,0 +1,1721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Currency Exchange</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --primary-light: #a5b4fc;
+            --secondary: #0f172a;
+            --accent: #38bdf8;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --light: #f8fafc;
+            --dark: #0f172a;
+            --gray: #64748b;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --card-border: rgba(255, 255, 255, 0.3);
+            --glass-bg: rgba(255, 255, 255, 0.15);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --backdrop: rgba(0, 0, 0, 0.5);
+                    }
+    
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            color: var(--light);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* Animated background */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 25%),
+                radial-gradient(circle at 80% 80%, rgba(56, 189, 248, 0.15) 0%, transparent 25%),
+                radial-gradient(circle at 40% 60%, rgba(244, 63, 94, 0.1) 0%, transparent 30%),
+                radial-gradient(circle at 70% 30%, rgba(16, 185, 129, 0.05) 0%, transparent 20%);
+            z-index: -1;
+            animation: gradientShift 20s ease infinite alternate;
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 0%;
+            }
+            100% {
+                background-position: 100% 100%;
+            }
+        }
+
+        header {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.8), rgba(79, 70, 229, 0.8));
+            padding: 2rem 1.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                0deg,
+                transparent,
+                rgba(255, 255, 255, 0.1),
+                transparent
+            );
+            transform: rotate(45deg);
+            animation: lightSweep 8s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes lightSweep {
+            0% {
+                transform: rotate(45deg) translateX(-100%);
+            }
+            100% {
+                transform: rotate(45deg) translateX(100%);
+            }
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--accent), var(--primary-light));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(56, 189, 248, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(56, 189, 248, 0);
+            }
+        }
+
+        .logo i {
+            font-size: 1.75rem;
+            color: white;
+        }
+
+        h1 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            background: linear-gradient(to right, #ffffff, #e2e8f0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            z-index: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        main {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            flex-grow: 1;
+            position: relative;
+            z-index: 1;
+        }
+
+        .glass-container {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 1.5rem;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            margin-bottom: 3rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .glass-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
+        }
+
+        .converter-container {
+            padding: 2.5rem;
+            position: relative;
+        }
+
+        .converter-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .converter-grid {
+                grid-template-columns: 1fr 1fr;
+                align-items: center;
+            }
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+            color: var(--light);
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .input-container {
+            position: relative;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 0.75rem;
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .input-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                0deg,
+                transparent,
+                rgba(255, 255, 255, 0.1),
+                transparent
+            );
+            transform: rotate(45deg) translateX(-100%);
+            transition: all 0.3s ease;
+        }
+
+        .input-container:hover::before {
+            transform: rotate(45deg) translateX(100%);
+            transition: all 0.8s ease;
+        }
+
+        .input-container:focus-within {
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
+        }
+
+        input, select {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1rem;
+            color: var(--light);
+            background: transparent;
+            border: none;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        select {
+            appearance: none;
+            -webkit-appearance: none;
+            cursor: pointer;
+        }
+
+        select option {
+            background-color: var(--secondary);
+            color: var(--light);
+        }
+
+        .currency-flag {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 10px;
+            vertical-align: middle;
+            filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.2));
+        }
+
+        .select-icon {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-light);
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+
+        .input-container:focus-within .select-icon {
+            color: var(--accent);
+        }
+
+        .amount-wrapper {
+            position: relative;
+        }
+
+        .amount-wrapper span {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 500;
+        }
+
+        .amount-wrapper input {
+            padding-left: 2.5rem;
+        }
+
+        .swap-button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 1.5rem 0;
+        }
+
+        @media (min-width: 768px) {
+            .swap-button-container {
+                margin: 0;
+            }
+        }
+
+        .swap-btn {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border: none;
+            color: white;
+            width: 3.5rem;
+            height: 3.5rem;
+            border-radius: 50%;
+            font-size: 1.25rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .swap-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transform: translateX(-100%);
+            transition: all 0.3s ease;
+        }
+
+        .swap-btn:hover {
+            transform: translateY(-5px) rotate(180deg);
+            box-shadow: 0 15px 20px -3px rgba(0, 0, 0, 0.3);
+        }
+
+        .swap-btn:hover::before {
+            transform: translateX(100%);
+        }
+
+        .convert-btn {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            padding: 1rem 1.5rem;
+            border-radius: 0.75rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .convert-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transform: translateX(-100%);
+            transition: all 0.5s ease;
+            z-index: -1;
+        }
+
+        .convert-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 20px -3px rgba(0, 0, 0, 0.3);
+        }
+
+        .convert-btn:hover::before {
+            transform: translateX(100%);
+        }
+
+        .convert-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 5px 10px -3px rgba(0, 0, 0, 0.3);
+        }
+
+        .result-container {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(56, 189, 248, 0.1));
+            padding: 2.5rem;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .result-inner {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .result-icon {
+            font-size: 2rem;
+            color: var(--primary-light);
+            margin-bottom: 1rem;
+            animation: bounceIn 0.5s ease forwards;
+        }
+
+        @keyframes bounceIn {
+            0% {
+                transform: scale(0);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .result-text {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            background: linear-gradient(to right, #ffffff, #e2e8f0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .rate-text {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+        }
+
+        .popular-currencies {
+            margin-top: 3rem;
+            animation: fadeInUp 0.8s ease forwards;
+            animation-delay: 0.2s;
+            opacity: 0;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .section-icon {
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            color: var(--primary-light);
+        }
+
+        .popular-heading {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--light);
+            position: relative;
+        }
+
+        .popular-heading::after {
+            content: '';
+            position: absolute;
+            bottom: -0.5rem;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            border-radius: 3px;
+        }
+
+        .rates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .rate-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .rate-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                0deg,
+                transparent,
+                rgba(255, 255, 255, 0.05),
+                transparent
+            );
+            transform: rotate(45deg) translateX(-100%);
+            transition: all 0.5s ease;
+        }
+
+        .rate-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.2);
+            border-color: rgba(99, 102, 241, 0.3);
+        }
+
+        .rate-card:hover::before {
+            transform: rotate(45deg) translateX(100%);
+        }
+
+        .rate-pair {
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .currency-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 0.75rem;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .rate-arrow {
+            margin: 0 0.75rem;
+            color: var(--primary-light);
+        }
+
+        .rate-value {
+            font-size: 1.5rem;
+            color: white;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .rate-trend {
+            font-size: 0.85rem;
+            margin-left: 0.5rem;
+            font-weight: 500;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.5rem;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .trend-up {
+            background-color: rgba(16, 185, 129, 0.2);
+            color: var(--success);
+        }
+
+        .trend-down {
+            background-color: rgba(239, 68, 68, 0.2);
+            color: var(--danger);
+        }
+
+        .trend-icon {
+            margin-right: 0.25rem;
+        }
+
+        .chart-preview {
+            height: 40px;
+            margin-top: 1rem;
+            position: relative;
+        }
+
+        .chart-line {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .chart-svg {
+            width: 100%;
+            height: 100%;
+            transform: translateY(5px);
+        }
+
+        .last-updated {
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.6);
+            text-align: center;
+            margin-top: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .last-updated i {
+            margin-right: 0.5rem;
+        }
+
+        .error-message {
+            color: var(--danger);
+            margin-top: 0.75rem;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .error-message i {
+            margin-right: 0.5rem;
+        }
+
+        .loading {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            margin: 1.5rem 0;
+        }
+
+        .loading-spinner {
+            position: relative;
+            width: 40px;
+            height: 40px;
+        }
+
+        .loading-spinner::before,
+        .loading-spinner::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            animation: pulse-animation 2s infinite;
+        }
+
+        .loading-spinner::before {
+            width: 100%;
+            height: 100%;
+            background-color: rgba(99, 102, 241, 0.3);
+            animation-delay: 0.5s;
+        }
+
+        .loading-spinner::after {
+            width: 75%;
+            height: 75%;
+            background-color: rgba(99, 102, 241, 0.6);
+            top: 12.5%;
+            left: 12.5%;
+        }
+
+        @keyframes pulse-animation {
+            0% {
+                transform: scale(0.8);
+                opacity: 0.8;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(0.8);
+                opacity: 0.8;
+            }
+        }
+
+        .loading-text {
+            margin-left: 1rem;
+            font-weight: 500;
+            color: var(--primary-light);
+        }
+
+        footer {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: rgba(255, 255, 255, 0.7);
+            text-align: center;
+            padding: 2rem 1.5rem;
+            margin-top: auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, var(--primary-light), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .social-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-3px);
+            background: var(--primary);
+        }
+
+        .social-icon i {
+            color: white;
+            font-size: 1rem;
+        }
+
+        .copyright {
+            font-size: 0.875rem;
+            margin-top: 1rem;
+        }
+
+        /* Floating currency symbols animation */
+        .currency-symbols {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .currency-symbol {
+            position: absolute;
+            opacity: 0.1;
+            animation: floatSymbol 30s linear infinite;
+        }
+
+        @keyframes floatSymbol {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.1;
+            }
+            90% {
+                opacity: 0.1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            width: 200px;
+            background-color: var(--secondary);
+            color: var(--light);
+            text-align: center;
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            position: absolute;
+            z-index: 100;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            font-size: 0.875rem;
+        }
+
+        .tooltip .tooltip-text::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: var(--secondary) transparent transparent transparent;
+        }
+
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Theme switcher */
+        .theme-switch {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            z-index: 10;
+        }
+
+        .theme-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .theme-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(30deg);
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            background: rgba(16, 185, 129, 0.9);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            transform: translateX(calc(100% + 2rem));
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification i {
+            margin-right: 0.75rem;
+            font-size: 1.25rem;
+        }
+
+        /* Mobile optimizations */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.75rem;
+            }
+
+            .converter-container, .result-container {
+                padding: 1.5rem;
+            }
+
+            .result-text {
+                font-size: 1.5rem;
+            }
+
+            .rate-card {
+                padding: 1.25rem;
+            }
+
+            .notification {
+                width: calc(100% - 2rem);
+                right: 1rem;
+            }
+        }
+
+        /* Calculator feature */
+        .calculator-toggle {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+        }
+
+        .calculator-toggle:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .calculator-panel {
+            position: absolute;
+            top: 100%;
+            right: 1rem;
+            width: 300px;
+            background: var(--secondary);
+            border-radius: 0.75rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: none;
+            z-index: 100;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .calculator-panel.active {
+            display: block;
+            animation: slideDown 0.3s ease forwards;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .calculator-header {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.75rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.calculator-close {
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.calculator-close:hover {
+    color: var(--danger);
+}
+
+.calculator-body {
+    padding: 1rem;
+}
+
+.calculator-display {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 0.5rem;
+    text-align: right;
+    font-size: 1.25rem;
+    font-weight: 500;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.calculator-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+}
+
+.calc-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.5rem;
+    padding: 0.75rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: var(--light);
+}
+
+.calc-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.calc-btn.operator {
+    background: rgba(99, 102, 241, 0.2);
+    color: var(--primary-light);
+}
+
+.calc-btn.equals {
+    background: var(--primary);
+    color: white;
+}
+
+.calc-btn.clear {
+    background: rgba(239, 68, 68, 0.2);
+    color: var(--danger);
+}
+
+/* Accessibility focus styles */
+button:focus, input:focus, select:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.5);
+}
+
+/* Light theme styles */
+body.light-theme {
+    background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+    color: var(--secondary);
+}
+
+body.light-theme::before {
+    background: 
+        radial-gradient(circle at 20% 20%, rgba(99, 102, 241, 0.1) 0%, transparent 25%),
+        radial-gradient(circle at 80% 80%, rgba(56, 189, 248, 0.1) 0%, transparent 25%),
+        radial-gradient(circle at 40% 60%, rgba(244, 63, 94, 0.05) 0%, transparent 30%),
+        radial-gradient(circle at 70% 30%, rgba(16, 185, 129, 0.05) 0%, transparent 20%);
+}
+
+body.light-theme header {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.9), rgba(79, 70, 229, 0.9));
+}
+
+body.light-theme .glass-container {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.5));
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+body.light-theme .input-container {
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+body.light-theme input, 
+body.light-theme select {
+    color: var(--secondary);
+}
+
+body.light-theme input::placeholder {
+    color: rgba(15, 23, 42, 0.5);
+}
+
+body.light-theme select option {
+    background-color: white;
+    color: var(--secondary);
+}
+
+body.light-theme .amount-wrapper span {
+    color: rgba(15, 23, 42, 0.7);
+}
+
+body.light-theme .result-container {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(56, 189, 248, 0.05));
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+body.light-theme .result-text {
+    background: linear-gradient(to right, var(--secondary), #334155);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+body.light-theme .rate-text {
+    color: rgba(15, 23, 42, 0.7);
+}
+
+body.light-theme .rate-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.5));
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+body.light-theme .rate-value {
+    color: var(--secondary);
+}
+
+body.light-theme .last-updated {
+    color: rgba(15, 23, 42, 0.6);
+}
+
+body.light-theme footer {
+    background: rgba(255, 255, 255, 0.8);
+    color: rgba(15, 23, 42, 0.7);
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+body.light-theme .theme-btn {
+    background: rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: var(--secondary);
+}
+
+body.light-theme .theme-btn:hover {
+    background: rgba(0, 0, 0, 0.15);
+}
+
+/* Preloaders for images and assets */
+.preload {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.preload.loaded {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.preload-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    border-top-color: var(--primary);
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+    </style>
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="preload">
+        <div class="preload-spinner"></div>
+    </div>
+
+    <!-- Theme Switcher -->
+    <div class="theme-switch">
+        <button class="theme-btn" id="themeToggle">
+            <i class="fas fa-moon"></i>
+        </button>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i>
+        <span id="notificationText">Currency converted successfully!</span>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="logo-container">
+            <div class="logo">
+                <i class="fas fa-exchange-alt"></i>
+            </div>
+            <h1>Premium Currency Exchange</h1>
+        </div>
+        <p class="subtitle">Fast, secure, and reliable currency conversion</p>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <div class="glass-container">
+            <div class="converter-container">
+                <div class="calculator-toggle" id="calcToggle">
+                    <i class="fas fa-calculator"></i>
+                </div>
+                <div class="calculator-panel" id="calcPanel">
+                    <div class="calculator-header">
+                        <span class="calculator-title">Currency Calculator</span>
+                        <span class="calculator-close" id="calcClose"><i class="fas fa-times"></i></span>
+                    </div>
+                    <div class="calculator-body">
+                        <div class="calculator-display" id="calcDisplay">0</div>
+                        <div class="calculator-buttons">
+                            <button class="calc-btn clear" data-value="C">C</button>
+                            <button class="calc-btn" data-value="(">(</button>
+                            <button class="calc-btn" data-value=")">)</button>
+                            <button class="calc-btn operator" data-value="/">÷</button>
+                            <button class="calc-btn" data-value="7">7</button>
+                            <button class="calc-btn" data-value="8">8</button>
+                            <button class="calc-btn" data-value="9">9</button>
+                            <button class="calc-btn operator" data-value="*">×</button>
+                            <button class="calc-btn" data-value="4">4</button>
+                            <button class="calc-btn" data-value="5">5</button>
+                            <button class="calc-btn" data-value="6">6</button>
+                            <button class="calc-btn operator" data-value="-">-</button>
+                            <button class="calc-btn" data-value="1">1</button>
+                            <button class="calc-btn" data-value="2">2</button>
+                            <button class="calc-btn" data-value="3">3</button>
+                            <button class="calc-btn operator" data-value="+">+</button>
+                            <button class="calc-btn" data-value="0">0</button>
+                            <button class="calc-btn" data-value=".">.</button>
+                            <button class="calc-btn" data-value="←">←</button>
+                            <button class="calc-btn equals" data-value="=">=</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="converter-grid">
+                    <div class="from-currency">
+                        <div class="form-group">
+                            <label for="fromAmount">Amount</label>
+                            <div class="input-container amount-wrapper">
+                                <span id="fromCurrencySymbol">$</span>
+                                <input type="number" id="fromAmount" placeholder="Enter amount" value="1">
+                            </div>
+                            <div class="error-message" id="amountError" style="display: none;">
+                                <i class="fas fa-exclamation-circle"></i>
+                                <span>Please enter a valid amount</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="fromCurrency">From Currency</label>
+                            <div class="input-container">
+                                <select id="fromCurrency">
+                                    <option value="USD">USD - US Dollar</option>
+                                    <option value="EUR">EUR - Euro</option>
+                                    <option value="GBP">GBP - British Pound</option>
+                                    <option value="JPY">JPY - Japanese Yen</option>
+                                    <option value="AUD">AUD - Australian Dollar</option>
+                                    <option value="CAD">CAD - Canadian Dollar</option>
+                                    <option value="CHF">CHF - Swiss Franc</option>
+                                    <option value="CNY">CNY - Chinese Yuan</option>
+                                    <option value="INR">INR - Indian Rupee</option>
+                                    <option value="BRL">BRL - Brazilian Real</option>
+                                </select>
+                                <div class="select-icon">
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swap-button-container">
+                        <button class="swap-btn" id="swapBtn">
+                            <i class="fas fa-exchange-alt"></i>
+                        </button>
+                    </div>
+                    <div class="to-currency">
+                        <div class="form-group">
+                            <label for="toAmount">Converted Amount</label>
+                            <div class="input-container amount-wrapper">
+                                <span id="toCurrencySymbol">€</span>
+                                <input type="number" id="toAmount" placeholder="Converted amount" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="toCurrency">To Currency</label>
+                            <div class="input-container">
+                                <select id="toCurrency">
+                                    <option value="EUR">EUR - Euro</option>
+                                    <option value="USD">USD - US Dollar</option>
+                                    <option value="GBP">GBP - British Pound</option>
+                                    <option value="JPY">JPY - Japanese Yen</option>
+                                    <option value="AUD">AUD - Australian Dollar</option>
+                                    <option value="CAD">CAD - Canadian Dollar</option>
+                                    <option value="CHF">CHF - Swiss Franc</option>
+                                    <option value="CNY">CNY - Chinese Yuan</option>
+                                    <option value="INR">INR - Indian Rupee</option>
+                                    <option value="BRL">BRL - Brazilian Real</option>
+                                </select>
+                                <div class="select-icon">
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" style="margin-top: 1.5rem;">
+                    <button class="convert-btn" id="convertBtn">
+                        <i class="fas fa-sync-alt"></i> Convert Currency
+                    </button>
+                </div>
+                <div class="loading" id="loading">
+                    <div class="loading-spinner"></div>
+                    <span class="loading-text">Converting...</span>
+                </div>
+            </div>
+            <div class="result-container" id="resultContainer" style="display: none;">
+                <div class="result-inner">
+                    <div class="result-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="result-text" id="resultText">1 USD = 0.85 EUR</div>
+                    <div class="rate-text" id="rateText">1 US Dollar = 0.85 Euro</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="popular-currencies">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h2 class="popular-heading">Popular Exchange Rates</h2>
+            </div>
+            <div class="rates-grid">
+                <div class="rate-card">
+                    <div class="rate-pair">
+                        <div class="currency-icon">$</div>
+                        <span>USD</span>
+                        <span class="rate-arrow"><i class="fas fa-long-arrow-alt-right"></i></span>
+                        <div class="currency-icon">€</div>
+                        <span>EUR</span>
+                    </div>
+                    <div class="rate-value">
+                        1 USD = 0.85 EUR
+                        <span class="rate-trend trend-up">
+                            <i class="fas fa-caret-up trend-icon"></i>0.2%
+                        </span>
+                    </div>
+                    <div class="chart-preview">
+                        <div class="chart-line">
+                            <svg class="chart-svg" viewBox="0 0 100 30">
+                                <path d="M0,15 Q25,5 50,20 T100,15" fill="none" stroke="rgba(99, 102, 241, 0.5)" stroke-width="2"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="rate-card">
+                    <div class="rate-pair">
+                        <div class="currency-icon">€</div>
+                        <span>EUR</span>
+                        <span class="rate-arrow"><i class="fas fa-long-arrow-alt-right"></i></span>
+                        <div class="currency-icon">£</div>
+                        <span>GBP</span>
+                    </div>
+                    <div class="rate-value">
+                        1 EUR = 0.87 GBP
+                        <span class="rate-trend trend-down">
+                            <i class="fas fa-caret-down trend-icon"></i>0.3%
+                        </span>
+                    </div>
+                    <div class="chart-preview">
+                        <div class="chart-line">
+                            <svg class="chart-svg" viewBox="0 0 100 30">
+                                <path d="M0,10 Q25,25 50,5 T100,20" fill="none" stroke="rgba(99, 102, 241, 0.5)" stroke-width="2"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="rate-card">
+                    <div class="rate-pair">
+                        <div class="currency-icon">£</div>
+                        <span>GBP</span>
+                        <span class="rate-arrow"><i class="fas fa-long-arrow-alt-right"></i></span>
+                        <div class="currency-icon">¥</div>
+                        <span>JPY</span>
+                    </div>
+                    <div class="rate-value">
+                        1 GBP = 153.2 JPY
+                        <span class="rate-trend trend-up">
+                            <i class="fas fa-caret-up trend-icon"></i>0.5%
+                        </span>
+                    </div>
+                    <div class="chart-preview">
+                        <div class="chart-line">
+                            <svg class="chart-svg" viewBox="0 0 100 30">
+                                <path d="M0,20 Q30,15 50,5 T100,10" fill="none" stroke="rgba(99, 102, 241, 0.5)" stroke-width="2"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="rate-card">
+                    <div class="rate-pair">
+                        <div class="currency-icon">$</div>
+                        <span>USD</span>
+                        <span class="rate-arrow"><i class="fas fa-long-arrow-alt-right"></i></span>
+                        <div class="currency-icon">¥</div>
+                        <span>JPY</span>
+                    </div>
+                    <div class="rate-value">
+                        1 USD = 110.2 JPY
+                        <span class="rate-trend trend-down">
+                            <i class="fas fa-caret-down trend-icon"></i>0.1%
+                        </span>
+                    </div>
+                    <div class="chart-preview">
+                        <div class="chart-line">
+                            <svg class="chart-svg" viewBox="0 0 100 30">
+                                <path d="M0,5 Q25,20 50,15 T100,25" fill="none" stroke="rgba(99, 102, 241, 0.5)" stroke-width="2"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="last-updated">
+                <i class="fas fa-clock"></i>
+                <span>Last updated: May 04, 2025 12:30 PM</span>
+            </div>
+        </div>
+
+        <!-- Floating currency symbols animation -->
+        <div class="currency-symbols">
+            <span class="currency-symbol" style="top: 20%; left: 10%; font-size: 24px;">$</span>
+            <span class="currency-symbol" style="top: 40%; left: 30%; font-size: 18px;">€</span>
+            <span class="currency-symbol" style="top: 15%; left: 70%; font-size: 22px;">£</span>
+            <span class="currency-symbol" style="top: 60%; left: 15%; font-size: 20px;">¥</span>
+            <span class="currency-symbol" style="top: 75%; left: 80%; font-size: 26px;">₹</span>
+            <span class="currency-symbol" style="top: 35%; left: 90%; font-size: 19px;">₽</span>
+            <span class="currency-symbol" style="top: 80%; left: 40%; font-size: 21px;">₣</span>
+            <span class="currency-symbol" style="top: 10%; left: 50%; font-size: 23px;">₩</span>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">Premium Currency Exchange</div>
+            <p>Fast, secure, and reliable currency conversion for all your needs.</p>
+            <div class="social-icons">
+                <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            <div class="copyright">© 2025 Premium Currency Exchange. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <script>
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function () {
+            // Elements
+            const fromAmount = document.getElementById('fromAmount');
+            const toAmount = document.getElementById('toAmount');
+            const fromCurrency = document.getElementById('fromCurrency');
+            const toCurrency = document.getElementById('toCurrency');
+            const convertBtn = document.getElementById('convertBtn');
+            const swapBtn = document.getElementById('swapBtn');
+            const resultContainer = document.getElementById('resultContainer');
+            const resultText = document.getElementById('resultText');
+            const rateText = document.getElementById('rateText');
+            const loading = document.getElementById('loading');
+            const amountError = document.getElementById('amountError');
+            const fromCurrencySymbol = document.getElementById('fromCurrencySymbol');
+            const toCurrencySymbol = document.getElementById('toCurrencySymbol');
+            const notification = document.getElementById('notification');
+            const notificationText = document.getElementById('notificationText');
+            const themeToggle = document.getElementById('themeToggle');
+            const body = document.body;
+            const preload = document.querySelector('.preload');
+            const calcToggle = document.getElementById('calcToggle');
+            const calcPanel = document.getElementById('calcPanel');
+            const calcClose = document.getElementById('calcClose');
+            const calcDisplay = document.getElementById('calcDisplay');
+            const calcButtons = document.querySelectorAll('.calc-btn');
+    
+            // Currency symbols map
+            const currencySymbols = {
+                'USD': '$',
+                'EUR': '€',
+                'GBP': '£',
+                'JPY': '¥',
+                'AUD': 'A$',
+                'CAD': 'C$',
+                'CHF': 'Fr',
+                'CNY': '¥',
+                'INR': '₹',
+                'BRL': 'R$'
+            };
+    
+            // Mock exchange rates (in a real app, these would come from an API)
+            const exchangeRates = {
+                'USD': { 'EUR': 0.85, 'GBP': 0.74, 'JPY': 110.2, 'AUD': 1.34, 'CAD': 1.25, 'CHF': 0.92, 'CNY': 6.47, 'INR': 74.5, 'BRL': 5.25 },
+                'EUR': { 'USD': 1.18, 'GBP': 0.87, 'JPY': 129.65, 'AUD': 1.58, 'CAD': 1.47, 'CHF': 1.08, 'CNY': 7.61, 'INR': 87.68, 'BRL': 6.18 },
+                'GBP': { 'USD': 1.35, 'EUR': 1.15, 'JPY': 148.92, 'AUD': 1.81, 'CAD': 1.69, 'CHF': 1.24, 'CNY': 8.75, 'INR': 100.68, 'BRL': 7.09 },
+                'JPY': { 'USD': 0.0091, 'EUR': 0.0077, 'GBP': 0.0067, 'AUD': 0.0122, 'CAD': 0.0113, 'CHF': 0.0083, 'CNY': 0.0587, 'INR': 0.6761, 'BRL': 0.0476 },
+                'AUD': { 'USD': 0.75, 'EUR': 0.63, 'GBP': 0.55, 'JPY': 82.24, 'CAD': 0.93, 'CHF': 0.69, 'CNY': 4.83, 'INR': 55.6, 'BRL': 3.92 },
+                'CAD': { 'USD': 0.8, 'EUR': 0.68, 'GBP': 0.59, 'JPY': 88.16, 'AUD': 1.07, 'CHF': 0.74, 'CNY': 5.18, 'INR': 59.6, 'BRL': 4.2 },
+                'CHF': { 'USD': 1.09, 'EUR': 0.93, 'GBP': 0.81, 'JPY': 120.22, 'AUD': 1.46, 'CAD': 1.36, 'CNY': 7.06, 'INR': 81.2, 'BRL': 5.72 },
+                'CNY': { 'USD': 0.15, 'EUR': 0.13, 'GBP': 0.11, 'JPY': 17.03, 'AUD': 0.21, 'CAD': 0.19, 'CHF': 0.14, 'INR': 11.51, 'BRL': 0.81 },
+                'INR': { 'USD': 0.013, 'EUR': 0.011, 'GBP': 0.01, 'JPY': 1.48, 'AUD': 0.018, 'CAD': 0.017, 'CHF': 0.012, 'CNY': 0.087, 'BRL': 0.07 },
+                'BRL': { 'USD': 0.19, 'EUR': 0.16, 'GBP': 0.14, 'JPY': 21, 'AUD': 0.26, 'CAD': 0.24, 'CHF': 0.17, 'CNY': 1.23, 'INR': 14.19 }
+            };
+    
+            // Remove preloader once page is loaded
+            window.addEventListener('load', function () {
+                setTimeout(function () {
+                    preload.classList.add('loaded');
+                }, 1000);
+            });
+    
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', function () {
+                body.classList.toggle('light-theme');
+    
+                if (body.classList.contains('light-theme')) {
+                    themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                } else {
+                    themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                }
+    
+                // Save theme preference
+                localStorage.setItem('theme', body.classList.contains('light-theme') ? 'light' : 'dark');
+            });
+    
+            // Load saved theme
+            if (localStorage.getItem('theme') === 'light') {
+                body.classList.add('light-theme');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            }
+    
+            // Update currency symbols
+            fromCurrency.addEventListener('change', function () {
+                fromCurrencySymbol.textContent = currencySymbols[this.value] || this.value;
+            });
+    
+            toCurrency.addEventListener('change', function () {
+                toCurrencySymbol.textContent = currencySymbols[this.value] || this.value;
+            });
+    
+            // Initialize currency symbols
+            fromCurrencySymbol.textContent = currencySymbols[fromCurrency.value] || fromCurrency.value;
+            toCurrencySymbol.textContent = currencySymbols[toCurrency.value] || toCurrency.value;
+    
+            // Swap currencies
+            swapBtn.addEventListener('click', function () {
+                const tempCurrency = fromCurrency.value;
+                fromCurrency.value = toCurrency.value;
+                toCurrency.value = tempCurrency;
+    
+                // Update currency symbols
+                fromCurrencySymbol.textContent = currencySymbols[fromCurrency.value] || fromCurrency.value;
+                toCurrencySymbol.textContent = currencySymbols[toCurrency.value] || toCurrency.value;
+    
+                // If there's a value in toAmount, swap it to fromAmount
+                if (toAmount.value) {
+                    const tempAmount = fromAmount.value;
+                    fromAmount.value = toAmount.value;
+                    toAmount.value = tempAmount;
+                }
+            });
+        }); // <-- This was missing
+    </script>
+
+    <script>
+        // Calculator functionality
+        calcToggle.addEventListener('click', function () {
+            calcPanel.classList.toggle('active');
+        });
+    
+        calcClose.addEventListener('click', function () {
+            calcPanel.classList.remove('active');
+        });
+    
+        calcButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const value = this.getAttribute('data-value');
+    
+                if (value === 'C') {
+                    calcDisplay.textContent = '0';
+                } else if (value === '=') {
+                    try {
+                        calcDisplay.textContent = eval(calcDisplay.textContent.replace(/×/g, '*').replace(/÷/g, '/'));
+                    } catch (e) {
+                        calcDisplay.textContent = 'Error';
+                    }
+                } else if (value === '←') {
+                    calcDisplay.textContent = calcDisplay.textContent.slice(0, -1) || '0';
+                } else {
+                    if (calcDisplay.textContent === '0') {
+                        calcDisplay.textContent = value;
+                    } else {
+                        calcDisplay.textContent += value;
+                    }
+                }
+            });
+        });
+        // Convert currency
+        convertBtn.addEventListener('click', function () {
+            const amount = parseFloat(fromAmount.value);
+            const from = fromCurrency.value;
+            const to = toCurrency.value;
+    
+            // Validate amount
+            if (isNaN(amount) || amount <= 0) {
+                amountError.style.display = 'block';
+                return;
+            } else {
+                amountError.style.display = 'none';
+            }
+    
+            // Show loading spinner
+            loading.style.display = 'flex';
+    
+            // Simulate API call
+            setTimeout(function () {
+                loading.style.display = 'none';
+    
+                // Calculate conversion
+                const rate = exchangeRates[from][to];
+                const convertedAmount = (amount * rate).toFixed(2);
+    
+                // Update result text
+                resultText.textContent = `${amount} ${from} = ${convertedAmount} ${to}`;
+                rateText.textContent = `1 ${from} = ${rate} ${to}`;
+    
+                // Show result container
+                resultContainer.style.display = 'block';
+    
+                // Show notification
+                notificationText.textContent = `Converted ${amount} ${from} to ${convertedAmount} ${to}`;
+                notification.classList.add('show');
+    
+                setTimeout(function () {
+                    notification.classList.remove('show');
+                }, 3000);
+            }, 1000);
+        });
+
+        // Hide result container on input change
+        fromAmount.addEventListener('input', function () {
+            resultContainer.style.display = 'none';
+        });
+        fromCurrency.addEventListener('change', function () {
+            resultContainer.style.display = 'none';
+        });
+        toCurrency.addEventListener('change', function () {
+            resultContainer.style.display = 'none';
+        });
+        // Hide notification on click
+        notification.addEventListener('click', function () {
+            notification.classList.remove('show');
+        });
+        // Floating currency symbols animation
+        const currencySymbols = document.querySelectorAll('.currency-symbol');
+        currencySymbols.forEach(symbol => {
+            const randomX = Math.random() * 100;
+            const randomY = Math.random() * 100;
+            const randomDuration = Math.random() * 5 + 5; // Between 5 and 10 seconds
+            const randomDelay = Math.random() * 5; // Between 0 and 5 seconds
+
+            symbol.style.animation = `float ${randomDuration}s ease-in-out ${randomDelay}s infinite`;
+            symbol.style.transform = `translate(${randomX}vw, ${randomY}vh)`;
+        });
+    </script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>
+    
